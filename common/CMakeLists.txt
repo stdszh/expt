@@ -1,0 +1,15 @@
+include(common)
+
+file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SOURCES)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${COMMON_LIBRARY_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${COMMON_LIBRARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${COMMON_BINRARY_DIR})
+
+file(COPY ${HEADERS} DESTINATION ${COMMON_INCLUDE_DIR})
+add_library(common SHARED ${SOURCES})
+add_library(common_static STATIC ${SOURCES})
+set_target_properties(common_static PROPERTIES OUTPUT_NAME "common")
+set_target_properties(common PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+set_target_properties(common_static PROPERTIES CLEAN_DIRECT_OUTPUT 1)

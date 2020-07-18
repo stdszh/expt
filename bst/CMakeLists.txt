@@ -1,0 +1,20 @@
+include(bst)
+
+include_directories(${MODULE_INCLUDE_DIR})
+
+file(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SOURCES)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BST_LIBRARY_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BST_LIBRARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BST_BINRARY_DIR})
+
+file(COPY ${HEADERS} DESTINATION ${BST_INCLUDE_DIR})
+
+add_library(bst SHARED ${SOURCES})
+add_library(bst_static STATIC ${SOURCES})
+set_target_properties(bst_static PROPERTIES OUTPUT_NAME "bst")
+set_target_properties(bst PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+set_target_properties(bst_static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test)
